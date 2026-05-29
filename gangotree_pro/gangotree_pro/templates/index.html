@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gangotree Social Organisation | Empowering Communities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📍 Plot No.-156/2794, Sisupalgarh, Old Town, Bhubaneswar - 751002</span>
+    <div class="topbar-right">
+      <a href="tel:+919438464630">📞 +91 9438464630</a>
+      <a href="mailto:gangotreeorg@gmail.com">✉ gangotreeorg@gmail.com</a>
+      <span>🕐 Mon–Fri / 9:00 AM – 7:00 PM</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo" onclick="showPage('home')">
+  <img src="{{ url_for('static', filename='gangologo.png') }}" alt="Gangotree Logo" class="logo-img">
+</div>
+
+
+
+    <div class="nav-links" id="navLinks">
+      <a href="#" class="nav-link active" onclick="showPage('home')">Home</a>
+      <a href="#" class="nav-link" onclick="showPage('about')">About Us</a>
+      <a href="#" class="nav-link" onclick="showPage('report')">Report</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-link dropdown-toggle">Program Activity ▾</a>
+        <div class="dropdown-menu">
+          <a href="#" onclick="showProgram('disabled')">Activities for Disabled & Senior Citizen</a>
+          <a href="#" onclick="showProgram('carbon')">Carbon Farming</a>
+          <a href="#" onclick="showProgram('trai')">TRAI Category 1</a>
+          <a href="#" onclick="showProgram('textile')">Ministry of Textile, Govt of India</a>
+          <a href="#" onclick="showProgram('nutrition')">Nutrition Programme</a>
+          <a href="#" onclick="showProgram('agriculture')">Agriculture</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-link dropdown-toggle">Gallery ▾</a>
+        <div class="dropdown-menu">
+          <a href="#" onclick="showPage('photo-gallery')">Photo Gallery</a>
+          <a href="#" onclick="showPage('video-gallery')">Video Gallery</a>
+        </div>
+      </div>
+      <a href="#" class="nav-link" onclick="showPage('contact')">Contact Us</a>
+      <a href="#" class="nav-donate-btn" onclick="showPage('donate')">🩷 Donate Now</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- =================== HOME PAGE =================== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO SLIDER -->
+  <section class="hero">
+    <div class="hero-slides" id="heroSlides">
+      <div class="hero-slide active" style="background-image:url('https://gangotree.org/banner/3-1.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('https://gangotree.org/banner/8-5.jpeg')"></div>
+      <div class="hero-slide" style="background-image:url('https://gangotree.org/banner/9-6.jpeg')"></div>
+      <div class="hero-slide" style="background-image:url('https://gangotree.org/banner/13-DSC_5226.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('https://gangotree.org/banner/16-DSC_5186.jpg')"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Est. Under Societies Registration Act 1860</div>
+      <h1 class="hero-title">Empowering Lives,<br><span class="hero-accent">Transforming Communities</span></h1>
+      <p class="hero-desc">A non-governmental social development organization dedicated to the welfare of tribal communities, women, and the underprivileged across Odisha.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('about')">Discover Our Work</button>
+        <button class="btn-outline" onclick="showPage('donate')">Support Us</button>
+      </div>
+    </div>
+    <div class="hero-nav">
+      <button class="hero-prev" onclick="changeSlide(-1)">&#8249;</button>
+      <div class="hero-dots" id="heroDots"></div>
+      <button class="hero-next" onclick="changeSlide(1)">&#8250;</button>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-band">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-num" data-target="180">0</span><span>+</span>
+        <p>Campaigns Completed</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="200">0</span><span>+</span>
+        <p>Villages Reached</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="400">0</span><span>+</span>
+        <p>Beneficiaries Served</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="25">0</span><span>+</span>
+        <p>Years of Impact</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WELCOME SECTION -->
+  <section class="welcome-section">
+    <div class="section-inner two-col">
+      <div class="welcome-text">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-title">Welcome To<br><em>Gangotree Social Organisation</em></h2>
+        <p>GANGOTREE SOCIAL ORGANISATION is a non-governmental social development organization established by a group of dedicated development activists. Their aim is to extend the benefits of development to the needy, particularly focusing on tribal communities.</p>
+        <p>The organization has successfully operated in this field, addressing various aspects of welfare and development, and has gained recognition for its efforts. It is registered under the Societies Registration Act of 1860 as a non-profit, non-political entity.</p>
+        <button class="btn-primary" onclick="showPage('about')">Read More About Us</button>
+      </div>
+      <div class="welcome-visual">
+        <div class="visual-card">
+          <img src="https://gangotree.org/banner/9-6.jpeg" alt="Gangotree work" onerror="this.style.background='#2d6a4f';this.alt=''">
+          <div class="visual-badge">
+            <span>🌱</span>
+            <p>Working since 1999</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs-section">
+    <div class="section-inner">
+      <div class="section-label center">What We Do</div>
+      <h2 class="section-title center">Our Program Activities</h2>
+      <div class="programs-grid">
+        <div class="program-card" onclick="showProgram('disabled')">
+          <div class="program-icon">♿</div>
+          <h3>Activities for Disabled & Senior Citizens</h3>
+          <p>Providing care, support, and advocacy for people with disabilities and elderly community members.</p>
+          <span class="program-link">Learn More →</span>
+        </div>
+        
+        <div class="program-card" onclick="showProgram('carbon')">
+          <div class="program-icon">🌳</div>
+          <h3>Carbon Farming</h3>
+          <p>Promoting sustainable agricultural practices that sequester carbon and benefit the environment.</p>
+          <span class="program-link">Learn More →</span>
+        </div><div class="program-card" onclick="showProgram('carbon')">
+          <div class="program-icon">🌳</div>
+          <h3>Carbon Farming</h3>
+          <p>Promoting sustainable agricultural practices that sequester carbon and benefit the environment.</p>
+          <span class="program-link">Learn More →</span>
+        </div>
+
+        <div class="program-card" onclick="showProgram('trai')">
+          <div class="program-icon">📡</div>
+          <h3>TRAI Category 1</h3>
+          <p>Telecom Regulatory Authority of India recognized Category 1 initiatives for digital inclusion.</p>
+          <span class="program-link">Learn More →</span>
+        </div>
+        <div class="program-card" onclick="showProgram('textile')">
+          <div class="program-icon">🧵</div>
+          <h3>Ministry of Textile, Govt of India</h3>
+          <p>Empowering artisans and weavers in collaboration with the Ministry of Textile, Government of India.</p>
+          <span class="program-link">Learn More →</span>
+        </div>
+        <div class="program-card" onclick="showProgram('nutrition')">
+          <div class="program-icon">🥗</div>
+          <h3>Nutrition Programme</h3>
+          <p>Addressing malnutrition among children and women in tribal and rural communities of Odisha.</p>
+          <span class="program-link">Learn More →</span>
+        </div>
+        <div class="program-card" onclick="showProgram('agriculture')">
+          <div class="program-icon">🌾</div>
+          <h3>Agriculture</h3>
+          <p>Supporting farmers with modern, sustainable techniques for enhanced food security and income.</p>
+          <span class="program-link">Learn More →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY PREVIEW -->
+  <section class="gallery-preview">
+    <div class="section-inner">
+      <div class="section-label center">Visual Stories</div>
+      <h2 class="section-title center">Images From Our Work</h2>
+      <div class="gallery-grid">
+        {% if gallery_items %}
+          {% for item in gallery_items[:6] %}
+          <div class="gallery-thumb" style="background-image:url('{{ url_for('static', filename='uploads/gallery/' + item.image) }}')"></div>
+          {% endfor %}
+        {% else %}
+        <div class="gallery-thumb" style="background-image:url('https://gangotree.org/gallery/2-WhatsApp Image 2024-03-31 at 12.39.33 PM (1).jpg')"></div>
+        <div class="gallery-thumb" style="background-image:url('https://gangotree.org/gallery/8-AWD pipe demonstration by a Farmer at Enaadarei (1).jpg')"></div>
+        <div class="gallery-thumb" style="background-image:url('https://gangotree.org/gallery/10-WhatsApp Image 2019-01-28 at 5.13.44 PM (1).jpeg')"></div>
+        <div class="gallery-thumb" style="background-image:url('https://gangotree.org/gallery/11-WhatsApp Image 2019-01-28 at 5.13.44 PM.jpeg')"></div>
+        <div class="gallery-thumb" style="background-image:url('https://gangotree.org/gallery/12-WhatsApp Image 2019-01-28 at 5.13.47 PM.jpeg')"></div>
+        <div class="gallery-thumb" style="background-image:url('https://gangotree.org/banner/16-DSC_5186.jpg')"></div>
+        {% endif %}
+      </div>
+      <div style="text-align:center;margin-top:2rem">
+        <button class="btn-primary" onclick="showPage('photo-gallery')">View Full Gallery</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONATE CTA -->
+  <section class="donate-cta">
+    <div class="section-inner">
+      <div class="cta-content">
+        <h2>Make A Difference Today</h2>
+        <p>Your contribution helps us empower tribal communities, support women, and uplift the underprivileged across Odisha.</p>
+        <button class="btn-white" onclick="showPage('donate')">Donate Now 🩷</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- =================== ABOUT PAGE =================== -->
+<div id="page-about" class="page">
+  <div class="page-hero" style="background-image:url('https://gangotree.org/banner/13-DSC_5226.jpg')">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>About Us</h1>
+      <p>Our story, mission, and vision</p>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <div class="section-inner">
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="showTab('genesis')">Genesis</button>
+        <button class="tab-btn" onclick="showTab('goal')">Our Goal</button>
+        <button class="tab-btn" onclick="showTab('vision')">Our Vision</button>
+        <button class="tab-btn" onclick="showTab('mission')">Our Mission</button>
+        <button class="tab-btn" onclick="showTab('objective')">Our Objective</button>
+        <button class="tab-btn" onclick="showTab('profile')">Organisation Profile</button>
+      </div>
+
+      <div id="tab-genesis" class="tab-content active">
+        <div class="about-grid">
+          <div class="about-text">
+            <h2>Genesis of Gangotree</h2>
+            <p>GANGOTREE SOCIAL ORGANISATION is a non-governmental social development organization established by a group of dedicated development activists. Their aim is to extend the benefits of development to the needy, particularly focusing on tribal communities. The organization has successfully operated in this field, addressing various aspects of welfare and development, and has gained recognition for its efforts. It is registered under the Societies Registration Act of 1860 as a non-profit, non-political entity.</p>
+            <p>There is a strong sense of commitment, dedication, and enthusiasm among the members, who are eager to provide assistance to those in need. GANGOTREE SOCIAL ORGANISATION has conducted various programs, actively involving the local community, with a special emphasis on tribal areas and individuals facing challenges. The organization has well-defined Bye-laws and a Memorandum of Association, along with a General Body and Governing Body, to enhance transparency and functionality.</p>
+            <p>Since its inception, the Organization has effectively executed diverse activities in line with its mission: <em>"To enhance the quality of life by intervening in areas related to health and livelihood, with a special focus on empowering women and ensuring proper child care in the community."</em></p>
+            <p>The registered headquarters is located at Plot No. 156/2794, At/Po—Sisupalgarh, Gyatri Vihar, Old-Town, Bhubaneswar, in the district of Khurda. Additionally, there are field offices at Pritipur—Alakunda, District-Jajpur, and in the K.B.K. district.</p>
+            <p>Gangotree Social Organisation operates in both coastal and tribal areas of Odisha, working closely with Dalits and other socially and economically disadvantaged groups.</p>
+          </div>
+          <div class="about-sidebar">
+            <div class="info-card">
+              <h4>📋 Registration</h4>
+              <p>Societies Registration Act, 1860</p>
+            </div>
+            <div class="info-card">
+              <h4>📍 Headquarters</h4>
+              <p>Plot No. 156/2794, Sisupalgarh, Bhubaneswar, Odisha</p>
+            </div>
+            <div class="info-card">
+              <h4>🗺 Area of Operation</h4>
+              <p>Jajpur, Nayagarh, KBK District of Odisha</p>
+            </div>
+            <div class="info-card">
+              <h4>🎯 Focus</h4>
+              <p>Tribal communities, Women Empowerment, Child Care, Health, Livelihood</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-goal" class="tab-content">
+        <div class="single-content">
+          <h2>Our Goal</h2>
+          <div class="highlight-box">
+            <p>The organization's goal is to establish a facilitative process that enables people to empower themselves.</p>
+          </div>
+          <h3>Area of Operation and Target Group</h3>
+          <p>The organization is intervening its development intervention in <strong>Jajpur, Nayagarh and KBK district</strong> of Odisha.</p>
+          <div class="goal-pillars">
+            <div class="pillar"><span>🏥</span><p>Health</p></div>
+            <div class="pillar"><span>💼</span><p>Livelihood</p></div>
+            <div class="pillar"><span>👩</span><p>Women Empowerment</p></div>
+            <div class="pillar"><span>👶</span><p>Child Care</p></div>
+            <div class="pillar"><span>🌿</span><p>Environment</p></div>
+            <div class="pillar"><span>🤝</span><p>Community</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-vision" class="tab-content">
+        <div class="single-content">
+          <h2>Our Vision</h2>
+          <div class="highlight-box">
+            <p>To achieve sustainable development and establish a new socio-economic order where the poor and women have equal opportunities, guided by the values of sustainable development, global common good, and compassion for the weaker sections of society.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-mission" class="tab-content">
+        <div class="single-content">
+          <h2>Our Mission</h2>
+          <div class="highlight-box">
+            <p>To enhance the quality of life by intervening in areas related to health and livelihood, with a special focus on empowering women and ensuring proper child care in the community. This is aimed at achieving sustainable development and establishing a new socio-economic order where the poor and women have equal opportunities.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-objective" class="tab-content">
+        <div class="single-content">
+          <h2>Our Objective</h2>
+          <ul class="styled-list">
+            <li>To work for the welfare and development of marginalized tribal communities in Odisha</li>
+            <li>To empower women and ensure their equal participation in socio-economic development</li>
+            <li>To address critical issues such as poverty, environmental development, and reproductive and child health</li>
+            <li>To integrate target communities into the mainstream development process</li>
+            <li>To ensure community participation and safeguard their rights and entitlements</li>
+            <li>To collaborate with partners and government bodies for sustainable impact</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="tab-profile" class="tab-content">
+        <div class="single-content">
+          <h2>Organisation Profile</h2>
+          <div class="profile-table">
+            <div class="profile-row"><span>Name</span><span>Gangotree Social Organisation</span></div>
+            <div class="profile-row"><span>Type</span><span>Non-Governmental, Non-Profit, Non-Political</span></div>
+            <div class="profile-row"><span>Registration</span><span>Societies Registration Act, 1860</span></div>
+            <div class="profile-row"><span>Address</span><span>Plot No. 156/2794, Sisupalgarh, Gayatri Vihar Road No-1, Old Town, Bhubaneswar - 751002</span></div>
+            <div class="profile-row"><span>Phone</span><span>+91 9438464630</span></div>
+            <div class="profile-row"><span>Email</span><span>gangotreeorg@gmail.com</span></div>
+            <div class="profile-row"><span>Field Offices</span><span>Pritipur–Alakunda, Jajpur; KBK District</span></div>
+            <div class="profile-row"><span>Area of Operation</span><span>Jajpur, Nayagarh, KBK districts of Odisha</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- =================== REPORT PAGE =================== -->
+<div id="page-report" class="page">
+  <div class="page-hero" style="background-image:url('https://gangotree.org/banner/16-DSC_5186.jpg')">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content"><h1>Reports</h1><p>Annual reports and documentation</p></div>
+  </div>
+  <section class="content-section">
+    <div class="section-inner">
+      <div class="section-label center">Transparency & Accountability</div>
+      <h2 class="section-title center">Our Reports</h2>
+      <div class="report-grid">
+        <div class="report-card">
+          <div class="report-icon">📄</div>
+          <h3>Annual Report 2022–23</h3>
+          <p>Comprehensive overview of activities, financials, and impact across all programs in Odisha.</p>
+          <a href="report-2022-23.pdf" download class="btn-outline-green">
+  Download PDF
+</a>
+        </div>
+        <div class="report-card">
+          <div class="report-icon">📊</div>
+          <h3>Annual Report 2021–22</h3>
+          <p>Detailed report of program activities, beneficiaries served, and organizational achievements.</p>
+          <a href="Annual Report2021-22.docx" download class="btn-outline-green">
+  Download PDF
+</a>
+        </div>
+        <div class="report-card">
+          <div class="report-icon">📋</div>
+          <h3>Annual Report 2024–25</h3>
+          <p>Field impact report covering tribal areas, nutrition programs, and women empowerment activities.</p>
+          <a href="report-2024-25.pdf" download class="btn-outline-green">
+  Download PDF
+</a>
+        </div>
+        <div class="report-card">
+          <div class="report-icon">📈</div>
+          <h3>Impact Assessment 2023</h3>
+          <p>Independent assessment of Gangotree's development interventions across districts of Odisha.</p>
+          <a href="report-2022-23.pdf" download class="btn-outline-green">
+  Download PDF
+</a>
+        </div>
+        <div class="report-card">
+          <div class="report-icon">🌿</div>
+          <h3>Carbon Farming Report</h3>
+          <p>Documentation of carbon farming initiatives and their environmental and economic impact on farming communities.</p>
+          <button class="btn-outline-green">Download PDF</button>
+        </div>
+        <div class="report-card">
+          <div class="report-icon">🧵</div>
+          <h3>Textile Programme Report</h3>
+          <p>Achievements under the Ministry of Textile, Government of India collaborative program.</p>
+          <button class="btn-outline-green">Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== PROGRAM ACTIVITY PAGE =================== -->
+<!-- =================== PROGRAM ACTIVITY PAGE =================== -->
+<div id="page-program" class="page">
+  <div class="page-hero" style="background-image:url('https://gangotree.org/banner/8-5.jpeg')">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content"><h1 id="programTitle">Program Activity</h1><p>Detailed program information</p></div>
+  </div>
+  <section class="content-section">
+    <div class="section-inner">
+      <div id="programContent"></div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== PHOTO GALLERY PAGE =================== -->
+<div id="page-photo-gallery" class="page">
+  <div class="page-hero" style="background-image:url('https://gangotree.org/banner/17-WhatsApp Image 2023-11-16 at 4.20.28 PM (2).jpg')">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content"><h1>Photo Gallery</h1><p>Moments of impact from the field</p></div>
+  </div>
+  <section class="content-section">
+    <div class="section-inner">
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
+        <button class="filter-btn" onclick="filterGallery('community',this)">Community</button>
+        <button class="filter-btn" onclick="filterGallery('farm',this)">Agriculture</button>
+        <button class="filter-btn" onclick="filterGallery('health',this)">Health</button>
+      </div>
+      <div class="photo-grid" id="photoGrid">
+        {% if gallery_items %}
+          {% for item in gallery_items %}
+          <div class="photo-item all {{ item.category }}" onclick="openLightbox(this)">
+            <img src="{{ url_for('static', filename='uploads/gallery/' + item.image) }}"
+                 alt="{{ item.title or item.category }}" loading="lazy">
+          </div>
+          {% endfor %}
+        {% else %}
+        <div class="photo-item all community" onclick="openLightbox(this)"><img src="https://gangotree.org/gallery/2-WhatsApp Image 2024-03-31 at 12.39.33 PM (1).jpg" alt="Community" loading="lazy"></div>
+        <div class="photo-item all farm" onclick="openLightbox(this)"><img src="https://gangotree.org/gallery/8-AWD pipe demonstration by a Farmer at Enaadarei (1).jpg" alt="Farming" loading="lazy"></div>
+        <div class="photo-item all community" onclick="openLightbox(this)"><img src="https://gangotree.org/gallery/10-WhatsApp Image 2019-01-28 at 5.13.44 PM (1).jpeg" alt="Community" loading="lazy"></div>
+        <div class="photo-item all community" onclick="openLightbox(this)"><img src="https://gangotree.org/gallery/11-WhatsApp Image 2019-01-28 at 5.13.44 PM.jpeg" alt="Community" loading="lazy"></div>
+        <div class="photo-item all health" onclick="openLightbox(this)"><img src="https://gangotree.org/gallery/12-WhatsApp Image 2019-01-28 at 5.13.47 PM.jpeg" alt="Health" loading="lazy"></div>
+        <div class="photo-item all community" onclick="openLightbox(this)"><img src="https://gangotree.org/banner/3-1.jpg" alt="Activity" loading="lazy"></div>
+        <div class="photo-item all farm" onclick="openLightbox(this)"><img src="https://gangotree.org/banner/13-DSC_5226.jpg" alt="Field" loading="lazy"></div>
+        <div class="photo-item all farm" onclick="openLightbox(this)"><img src="https://gangotree.org/banner/14-DSC_5239.jpg" alt="Field" loading="lazy"></div>
+        <div class="photo-item all community" onclick="openLightbox(this)"><img src="https://gangotree.org/banner/15-IMG_20230323_131641 (1).jpg" alt="Community" loading="lazy"></div>
+        <div class="photo-item all health" onclick="openLightbox(this)"><img src="https://gangotree.org/banner/16-DSC_5186.jpg" alt="Program" loading="lazy"></div>
+        <div class="photo-item all community" onclick="openLightbox(this)"><img src="https://gangotree.org/banner/17-WhatsApp Image 2023-11-16 at 4.20.28 PM (2).jpg" alt="Community" loading="lazy"></div>
+        <div class="photo-item all community" onclick="openLightbox(this)"><img src="https://gangotree.org/banner/18-WhatsApp Image 2024-01-08 at 3.58.44 PM (1).jpg" alt="Community" loading="lazy"></div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- =================== VIDEO GALLERY PAGE =================== -->
+<div id="page-video-gallery" class="page">
+  <div class="page-hero" style="background-image:url('https://gangotree.org/banner/9-6.jpeg')">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content"><h1>Video Gallery</h1><p>Stories told in motion</p></div>
+  </div>
+  <section class="content-section">
+    <div class="section-inner">
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="play-btn">▶</div>
+            <p>Community Development Programme – Jajpur 2023</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="play-btn">▶</div>
+            <p>Carbon Farming Field Documentary</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="play-btn">▶</div>
+            <p>Women Empowerment – Textile Programme</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="play-btn">▶</div>
+            <p>Nutrition Programme – Tribal Children</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+<!-- =================== CONTACT PAGE =================== -->
+<div id="page-contact" class="page">
+  <div class="page-hero" style="background-image:url('https://gangotree.org/banner/18-WhatsApp Image 2024-01-08 at 3.58.44 PM (1).jpg')">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content"><h1>Contact Us</h1><p>Get in touch with us</p></div>
+  </div>
+
+  <section class="content-section">
+    <div class="section-inner">
+
+      <div class="contact-quote">
+        <p>"The secret to happiness lies in helping others. Never underestimate the difference YOU can make in the lives of the poor, the abused and the helpless."</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- LEFT INFO -->
+        <div class="contact-info">
+          <h2>Get In Touch</h2>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Our Address</h4>
+              <p>Plot No.- 156/2794 At/Po-Sisupalgarh, Gayatri Vihar Road no-1, Old Town, Bhubaneswar- 751002, Odisha, India</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Phone Number</h4>
+              <p><a href="tel:+919438464630">+91 9438464630</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+            <div>
+              <h4>Email Address</h4>
+              <p><a href="mailto:gangotreeorg@gmail.com">gangotreeorg@gmail.com</a></p>
+            </div>
+          </div>
+
+          <div class="contact-cta-box">
+            <h3>Let Us Come Together To Make A Difference</h3>
+            <button class="btn-primary" onclick="showPage('donate')">Donate Now</button>
+          </div>
+        </div>
+<form id="contactForm" onsubmit="handleContactSubmit(event)">
+
+  <div class="contact-form">
+
+    <div class="form-group">
+      <input type="text" id="cf_name" name="name" placeholder="Your Full Name" class="form-input" required>
+    </div>
+
+    <div class="form-group">
+      <input type="email" id="cf_email" name="email" placeholder="Your Email Address" class="form-input" required>
+    </div>
+
+    <div class="form-group">
+      <input type="tel" id="cf_phone" name="phone" placeholder="Phone Number" class="form-input">
+    </div>
+
+    <div class="form-group">
+      <textarea id="cf_message" name="message" placeholder="Your Message" class="form-input" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" id="cf_btn" class="btn-primary full-width">
+      Send Message
+    </button>
+
+    <div id="cf_success" style="display:none;margin-top:1rem;padding:0.8rem 1.2rem;background:#e8f5e9;color:#2e7d32;border-radius:8px;border-left:4px solid #43a047;font-size:0.9rem;">
+      ✅ Thank you! Your message has been sent. We'll get back to you soon.
+    </div>
+    <div id="cf_error" style="display:none;margin-top:1rem;padding:0.8rem 1.2rem;background:#fdecea;color:#c62828;border-radius:8px;border-left:4px solid #e53935;font-size:0.9rem;">
+      ❌ Something went wrong. Please try again.
+    </div>
+
+  </div>
+
+</form>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== DONATE PAGE =================== -->
+<div id="page-donate" class="page">
+  <div class="page-hero" style="background-image:url('https://gangotree.org/banner/15-IMG_20230323_131641 (1).jpg')">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content"><h1>Donate</h1><p>Help us be a part of a just world</p></div>
+  </div>
+  <section class="content-section">
+    <div class="section-inner">
+      <div class="donate-intro">
+        <h2>Help Us To Be A Part Of A Just World!!!</h2>
+        <p>As a non-profit organization, we rely on funds for the survival and sustaining of our projects. By donating, you will help to contribute to making a gender just world; where women can lead lives with dignity and equality.</p>
+        <p>To find out more about where your donations go, visit <a href="#" onclick="showPage('home')">Programs and Activities</a>.</p>
+      </div>
+
+      <div class="donate-grid">
+        <div class="donate-amounts">
+          <h3>Choose Your Donation</h3>
+          <div class="amount-grid">
+            <button class="amount-btn" onclick="selectAmount(500, this)">₹500</button>
+            <button class="amount-btn" onclick="selectAmount(1000, this)">₹1,000</button>
+            <button class="amount-btn" onclick="selectAmount(2000, this)">₹2,000</button>
+            <button class="amount-btn" onclick="selectAmount(5000, this)">₹5,000</button>
+            <button class="amount-btn" onclick="selectAmount(10000, this)">₹10,000</button>
+            <button class="amount-btn" onclick="selectAmount(25000, this)">₹25,000</button>
+          </div>
+          <div class="custom-amount">
+            <input type="number" placeholder="Enter custom amount (₹)" class="form-input" id="customAmount">
+          </div>
+          <button class="btn-primary full-width" onclick="proceedDonate()">Donate Now 💚</button>
+          <div id="donateSuccess" class="form-success" style="display:none">✅ Thank you for your generosity! Please use the bank details below to complete your donation.</div>
+        </div>
+
+        <div class="bank-details">
+          <div class="bank-card">
+            <h3>🏦 Bank Details</h3>
+            <div class="bank-row"><span>Account Name</span><span>Gangotree Social Organisation</span></div>
+            <div class="bank-row"><span>Bank</span><span>Bank of Maharashtra</span></div>
+            <div class="bank-row"><span>Account No.</span><span>60478742974</span></div>
+            <div class="bank-row"><span>IFSC Code</span><span>MAHB0002047</span></div>
+            <div class="bank-row"><span>Branch</span><span>Kalpana Square, Bhubaneswar</span></div>
+          </div>
+          <div class="upi-note">
+            <p>💡 After donating, kindly email your transaction ID to <strong>gangotreeorg@gmail.com</strong> for acknowledgment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+  <img src="{{ url_for('static', filename='gangologo.png') }}" alt="Gangotree Logo" class="footer-logo-img">
+</div>
+        <p>A non-governmental social development organization dedicated to empowering tribal communities and marginalized groups across Odisha, India.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('about')">About Us</a></li>
+          <li><a href="#" onclick="showPage('report')">Reports</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+          <li><a href="#" onclick="showPage('donate')">Donate</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Program Activity</h4>
+        <ul>
+          <li><a href="#" onclick="showProgram('disabled')">Activities for Disabled</a></li>
+          <li><a href="#" onclick="showProgram('carbon')">Carbon Farming</a></li>
+          <li><a href="#" onclick="showProgram('trai')">TRAI Category 1</a></li>
+          <li><a href="#" onclick="showProgram('textile')">Ministry of Textile</a></li>
+          <li><a href="#" onclick="showProgram('nutrition')">Nutrition Programme</a></li>
+          <li><a href="#" onclick="showProgram('agriculture')">Agriculture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <p>📍 Plot No.-156/2794, Sisupalgarh, Gayatri Vihar Road no-1, Old Town, Bhubaneswar-751002</p>
+        <p>📞 <a href="tel:+919438464630">+91 9438464630</a></p>
+        <p>✉ <a href="mailto:gangotreeorg@gmail.com">gangotreeorg@gmail.com</a></p>
+      
+  <!-- 🔥 ADD HERE -->
+  <div class="social-links">
+    <a href="https://instagram.com/yourpage" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://facebook.com/yourpage" target="_blank">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://linkedin.com/company/yourpage" target="_blank">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+  <a href="https://twitter.com/yourpage" target="_blank">
+    <i class="fab fa-x-twitter"></i>
+  </a>
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© Copyright Gangotree 2026. | Created by <a href="https://comply2grow.online" target="_blank">Comply2grow</a> | Redesigned with ❤ for impact.</p>
+    <p><a href="#">Terms & Condition</a> | <a href="#">Privacy Policy</a> | <a href="#">Legal</a></p>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+/* ── CONTACT FORM AJAX ───────────────────────────────────── */
+async function handleContactSubmit(e) {
+  e.preventDefault();
+  const btn  = document.getElementById('cf_btn');
+  const succ = document.getElementById('cf_success');
+  const err  = document.getElementById('cf_error');
+  succ.style.display = 'none';
+  err.style.display  = 'none';
+  btn.disabled    = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch('/contact', {
+      method: 'POST',
+      body: new URLSearchParams({
+        name:    document.getElementById('cf_name').value.trim(),
+        email:   document.getElementById('cf_email').value.trim(),
+        phone:   document.getElementById('cf_phone').value.trim(),
+        message: document.getElementById('cf_message').value.trim(),
+      })
+    });
+    if (res.ok) {
+      succ.style.display = 'block';
+      document.getElementById('contactForm').reset();
+    } else { err.style.display = 'block'; }
+  } catch (_) { err.style.display = 'block'; }
+  finally {
+    btn.disabled    = false;
+    btn.textContent = 'Send Message';
+  }
+}
+</script>
+</body>
+</html>

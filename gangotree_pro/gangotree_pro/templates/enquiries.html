@@ -1,0 +1,64 @@
+{% extends "_admin_base.html" %}
+{% block title %}Enquiries{% endblock %}
+{% block page_title %}Enquiries{% endblock %}
+
+{% block content %}
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-icon si-navy">📨</div>
+    <div><div class="stat-num">{{ total }}</div><div class="stat-label">Total Enquiries</div></div>
+  </div>
+  <div class="stat">
+    <div class="stat-icon si-pink">🔍</div>
+    <div><div class="stat-num">{{ contacts|length }}</div>
+      <div class="stat-label">{% if search %}Search Results{% else %}Showing{% endif %}</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h2>📬 Contact Enquiries</h2>
+    <form class="search-row" method="GET" action="/admin/enquiries">
+      <input type="text" name="search" placeholder="Search name, email…" value="{{ search }}">
+      <button type="submit" class="btn-navy" style="padding:.42rem .9rem;font-size:.82rem;">Search</button>
+      {% if search %}<a href="/admin/enquiries" class="btn-clear">Clear</a>{% endif %}
+    </form>
+  </div>
+
+  <div class="tbl-wrap">
+    {% if contacts %}
+    <table>
+      <thead>
+        <tr><th>#</th><th>Name</th><th>Email / Phone</th><th>Message</th><th>Received</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        {% for r in contacts %}
+        <tr>
+          <td class="td-muted">{{ r['id'] }}</td>
+          <td class="td-bold">{{ r['name'] }}</td>
+          <td>
+            <div>{{ r['email'] }}</div>
+            <div class="td-muted">{{ r['phone'] or '—' }}</div>
+          </td>
+          <td style="max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="{{ r['message'] }}">{{ r['message'] }}</td>
+          <td class="td-muted" style="white-space:nowrap;">{{ r['created_at'] or '—' }}</td>
+          <td>
+            <button class="btn-del"
+              onclick="askDelete('/admin/enquiries/delete/{{ r['id'] }}', '{{ r['name']|replace("'","\\'")|e }}')">
+              🗑 Delete
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty">
+      <div class="icon">📭</div>
+      <p>{% if search %}No results for "<strong>{{ search }}</strong>"{% else %}No enquiries yet.{% endif %}</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

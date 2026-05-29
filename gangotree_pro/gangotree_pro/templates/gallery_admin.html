@@ -1,0 +1,84 @@
+{% extends "_admin_base.html" %}
+{% block title %}Photo Gallery{% endblock %}
+{% block page_title %}Photo Gallery{% endblock %}
+
+{% block content %}
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-icon si-pink">🖼</div>
+    <div><div class="stat-num">{{ total }}</div><div class="stat-label">Total Photos</div></div>
+  </div>
+</div>
+
+<!-- Upload Form -->
+<div class="card">
+  <div class="card-head"><h2>📤 Upload New Photo</h2></div>
+  <div class="card-body">
+    <form method="POST" action="/admin/gallery/add" enctype="multipart/form-data">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" name="title" placeholder="Photo title or caption" required>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select name="category">
+            <option value="all">All / General</option>
+            <option value="community">Community</option>
+            <option value="farm">Agriculture</option>
+            <option value="health">Health</option>
+            <option value="education">Education</option>
+            <option value="women">Women Empowerment</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Image File</label>
+        <input type="file" name="image" accept="image/*" required
+               style="padding:.45rem .8rem;background:#fafafa;">
+        <small style="color:#999;font-size:.75rem;display:block;margin-top:.3rem;">
+          Accepted: JPG, PNG, GIF, WEBP. Image will appear on the website gallery.
+        </small>
+      </div>
+      <button type="submit" class="btn-navy">📤 Upload Photo</button>
+    </form>
+  </div>
+</div>
+
+<!-- Gallery Grid -->
+<div class="card">
+  <div class="card-head">
+    <h2>🖼 All Gallery Photos</h2>
+    <span style="font-size:.82rem;color:#999;">{{ total }} photo{{ 's' if total != 1 }}</span>
+  </div>
+
+  {% if items %}
+  <div class="gallery-admin-grid">
+    {% for item in items %}
+    <div class="g-card">
+      <img src="{{ url_for('static', filename='uploads/gallery/' + item.image) }}"
+           alt="{{ item.title }}"
+           onerror="this.style.background='#e0e0e0';this.style.height='140px';">
+      <div class="g-info">
+        <div>
+          <div class="g-title" title="{{ item.title }}">{{ item.title or 'Untitled' }}</div>
+          <span class="g-tag">{{ item.category or 'all' }}</span>
+        </div>
+        <button class="btn-del"
+          onclick="askDelete('/admin/gallery/delete/{{ item.id }}', '{{ item.title|replace("'","\\'")|e or "this photo" }}')">
+          🗑
+        </button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty">
+    <div class="icon">🖼</div>
+    <p>No photos uploaded yet. Use the form above to add your first photo.</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

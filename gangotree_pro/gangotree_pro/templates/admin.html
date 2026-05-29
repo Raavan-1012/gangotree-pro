@@ -1,0 +1,75 @@
+{% extends "_admin_base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-icon si-navy">📨</div>
+    <div><div class="stat-num">{{ total_contacts }}</div><div class="stat-label">Total Enquiries</div></div>
+  </div>
+  <div class="stat">
+    <div class="stat-icon si-pink">🖼</div>
+    <div><div class="stat-num">{{ total_gallery }}</div><div class="stat-label">Gallery Photos</div></div>
+  </div>
+  <div class="stat">
+    <div class="stat-icon si-green">📋</div>
+    <div><div class="stat-num">{{ total_activities }}</div><div class="stat-label">Program Activities</div></div>
+  </div>
+  <div class="stat">
+    <div class="stat-icon si-blue">🌿</div>
+    <div><div class="stat-num">NGO</div><div class="stat-label">Gangotree Social Org</div></div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.4rem;">
+  <a href="/admin/gallery" style="display:flex;align-items:center;gap:.8rem;background:#fff;border-radius:12px;padding:1rem 1.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);color:#1a237e;font-weight:600;font-size:.88rem;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 6px 24px rgba(26,35,126,.15)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,.07)'">
+    <span style="font-size:1.4rem;">🖼</span> Manage Gallery
+  </a>
+  <a href="/admin/activities" style="display:flex;align-items:center;gap:.8rem;background:#fff;border-radius:12px;padding:1rem 1.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);color:#1a237e;font-weight:600;font-size:.88rem;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 6px 24px rgba(26,35,126,.15)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,.07)'">
+    <span style="font-size:1.4rem;">📋</span> Manage Activities
+  </a>
+  <a href="/admin/enquiries" style="display:flex;align-items:center;gap:.8rem;background:#fff;border-radius:12px;padding:1rem 1.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);color:#1a237e;font-weight:600;font-size:.88rem;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 6px 24px rgba(26,35,126,.15)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,.07)'">
+    <span style="font-size:1.4rem;">📨</span> View Enquiries
+  </a>
+  <a href="/" target="_blank" style="display:flex;align-items:center;gap:.8rem;background:#fff;border-radius:12px;padding:1rem 1.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);color:#1a237e;font-weight:600;font-size:.88rem;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 6px 24px rgba(26,35,126,.15)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,.07)'">
+    <span style="font-size:1.4rem;">🌐</span> View Website
+  </a>
+</div>
+
+<!-- Recent Enquiries -->
+<div class="card">
+  <div class="card-head">
+    <h2>📬 Recent Enquiries</h2>
+    <a href="/admin/enquiries" style="font-size:.82rem;color:#1a237e;font-weight:600;">View All →</a>
+  </div>
+  <div class="tbl-wrap">
+    {% if recent_contacts %}
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in recent_contacts %}
+        <tr>
+          <td class="td-muted">{{ r['id'] }}</td>
+          <td class="td-bold">{{ r['name'] }}</td>
+          <td>{{ r['email'] }}</td>
+          <td class="td-muted">{{ r['phone'] or '—' }}</td>
+          <td style="max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r['message'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty"><div class="icon">📭</div><p>No enquiries yet.</p></div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
