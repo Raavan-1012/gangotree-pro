@@ -3,11 +3,15 @@ Gangotree Social Organisation — Complete Flask Backend
 ======================================================
 Run:   python app.py
 Site:  http://127.0.0.1:5000
-Admin: http://127.0.0.1:5000/admin   (admin / admin123)
+Admin: http://127.0.0.1:5000/admin
 """
 
 import os
 import sqlite3
+import hmac
+import hashlib
+import razorpay
+from dotenv import load_dotenv
 from datetime import datetime
 from functools import wraps
 
@@ -18,6 +22,8 @@ from flask import (
 from werkzeug.utils import secure_filename
 
 # ── App setup ─────────────────────────────────────────────────────────────────
+load_dotenv()
+
 app = Flask(__name__)
 app.secret_key = "gangotree_2024_secret"
 
@@ -29,6 +35,11 @@ ALLOWED_EXT      = {"png", "jpg", "jpeg", "gif", "webp"}
 
 ADMIN_USER = "gangotree.org"
 ADMIN_PASS = "Narayan@123"
+
+razorpay_client = razorpay.Client(auth=(
+    os.getenv("RAZORPAY_KEY_ID"),
+    os.getenv("RAZORPAY_KEY_SECRET")
+))
 
 os.makedirs(GALLERY_FOLDER,  exist_ok=True)
 os.makedirs(ACTIVITY_FOLDER, exist_ok=True)
@@ -118,6 +129,52 @@ def contact():
     )
     db.commit()
     return jsonify({"status": "ok"}), 200
+
+# ── RAZORPAY PAYMENT ROUTES ───────────────────────────────────────────────────
+@app.route("/create-razorpay-order", methods=["POST"])
+def create_razorpay_order():
+    data = request.get_json()
+    amount = int(data.get("amount", 0))
+
+    if amount <= 0:
+        return jsonify({"error": "Invalid amount"}), 400
+
+    order = razorpay_client.order.create({
+        "amount": amount * 100,
+        "currency": "INR",
+        "payment_capture": 1
+    })
+
+    return jsonify({
+        "key": os.getenv("RAZORPAY_KEY_ID"),
+        "order_id": order["id"],
+        "amount": order["amount"],
+        "currency": order["currency"]
+    })
+
+@app.route("/verify-razorpay-payment", methods=["POST"])
+def verify_razorpay_payment():
+    data = request.get_json()
+
+    razorpay_order_id = data.get("razorpay_order_id")
+    razorpay_payment_id = data.get("razorpay_payment_id")
+    razorpay_signature = data.get("razorpay_signature")
+
+    if not razorpay_order_id or not razorpay_payment_id or not razorpay_signature:
+        return jsonify({"status": "failed", "message": "Missing payment details"}), 400
+
+    message = razorpay_order_id + "|" + razorpay_payment_id
+
+    generated_signature = hmac.new(
+        os.getenv("RAZORPAY_KEY_SECRET").encode(),
+        message.encode(),
+        hashlib.sha256
+    ).hexdigest()
+
+    if generated_signature == razorpay_signature:
+        return jsonify({"status": "success"})
+
+    return jsonify({"status": "failed"}), 400
 
 # ── API: gallery images for frontend (JSON) ────────────────────────────────────
 @app.route("/api/gallery")
@@ -231,7 +288,6 @@ def add_gallery():
         return redirect("/admin/gallery")
 
     filename = secure_filename(file.filename)
-    # Make unique
     ts       = datetime.now().strftime("%Y%m%d%H%M%S%f")
     filename = f"{ts}_{filename}"
     filepath = os.path.join(GALLERY_FOLDER, filename)
@@ -323,6 +379,6 @@ if __name__ == "__main__":
     print("="*55)
     print("  Website  : http://127.0.0.1:5000")
     print("  Admin    : http://127.0.0.1:5000/admin")
-    print("  Login    : admin / admin123")
+    print("  Login    : gangotree.org / Narayan@123")
     print("="*55 + "\n")
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
