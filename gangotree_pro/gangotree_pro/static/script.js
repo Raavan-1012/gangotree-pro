@@ -611,25 +611,81 @@ function selectAmount(amount, btn) {
   if (customInput) customInput.value = '';
 }
 
-function proceedDonate() {
+async function proceedDonate() {
   const customInput = document.getElementById('customAmount');
   const custom = customInput ? parseInt(customInput.value, 10) : 0;
   const amount = custom > 0 ? custom : selectedAmount;
 
   if (!amount || amount <= 0) {
-    // Highlight the grid
-    document.querySelector('.amount-grid').style.outline = '2px solid #e74c3c';
-    setTimeout(
-      () => (document.querySelector('.amount-grid').style.outline = ''),
-      2000,
-    );
+    alert('Please select or enter donation amount.');
     return;
   }
 
-  const success = document.getElementById('donateSuccess');
-  success.style.display = 'block';
-  success.textContent = `✅ Thank you for choosing to donate ₹${amount.toLocaleString('en-IN')}! Please use the bank details below to complete your transfer.`;
-  success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  try {
+    const orderResponse = await fetch('/create-razorpay-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount: amount }),
+    });
+
+    const order = await orderResponse.json();
+
+    if (!orderResponse.ok) {
+      alert(order.error || 'Unable to create Razorpay order.');
+      return;
+    }
+
+    const options = {
+      key: order.key,
+      amount: order.amount,
+      currency: order.currency,
+      name: 'Gangotree Social Organisation',
+      description: 'Donation',
+      order_id: order.order_id,
+
+      handler: async function (response) {
+        const verifyResponse = await fetch('/verify-razorpay-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(response),
+        });
+
+        const result = await verifyResponse.json();
+
+        const success = document.getElementById('donateSuccess');
+        success.style.display = 'block';
+
+        if (result.status === 'success') {
+          success.textContent = `✅ Thank you! Your donation of ₹${amount.toLocaleString('en-IN')} was successful.`;
+        } else {
+          success.textContent =
+            '❌ Payment verification failed. Please contact us if amount was deducted.';
+        }
+
+        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      },
+
+      modal: {
+        ondismiss: function () {
+          console.log('Razorpay popup closed');
+        },
+      },
+
+      theme: {
+        color: '#2e7d32',
+      },
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+  } catch (error) {
+    console.error(error);
+    alert('Something went wrong while opening Razorpay.');
+  }
 }
 
 /* ─── MOBILE HAMBURGER MENU ───────────────────────────────── */
